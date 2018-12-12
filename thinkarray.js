@@ -9,18 +9,17 @@ class Array {
   }
 
   push(value) {
-    if(this.length > this._capacity){
-      this._resize((this.length ++) * Array.SIZE_RATIO);
+    if(this.length >= this._capacity){
+      this._resize((this.length + 1) * Array.SIZE_RATIO);
     }
     
     memory.set(this.ptr + this.length, value);
     this.length ++;
-
   }
 
-  _resize(val){
+  _resize(size){
     const oldPtr = this.ptr;
-    this.ptr = memory.allocate(val);
+    this.ptr = memory.allocate(size);
     if(this.ptr === null){
       throw new Error('Out of memory');
     }
@@ -44,16 +43,18 @@ class Array {
     this.length --;
     return value;
   }
-  insert(index, value){
-    if(index < 0 || index >= this.length){
-      throw new Error('Index Error');
+  insert(index, value) {
+    if (index < 0 || index >= this.length) {
+      throw new Error('Index error');
     }
-    if(this.length >= this._capacity){
-      this._resize((this.length +1 ) * Array.SIZE_RATIO);
+
+    if (this.length >= this._capacity) {
+      this._resize((this.length + 1) * Array.SIZE_RATIO);
     }
+
     memory.copy(this.ptr + index + 1, this.ptr + index, this.length - index);
     memory.set(this.ptr + index, value);
-    this.length ++;
+    this.length++;
   }
 
   remove(index){
@@ -66,9 +67,18 @@ class Array {
   
 }
 
-Array.SIZE_RATIO = 3;
+function main(){
 
-const arr = new Array();
-arr.push(78);
-console.log(arr.pop());
+  Array.SIZE_RATIO = 3;
 
+  //create an instance of the array class
+  let arr = new Array();
+
+  arr.push('tauhida');
+  arr.push('tauhida');
+  //7, 12, 3
+  console.log(arr);
+  console.log(arr.get(1));
+}
+
+main();
