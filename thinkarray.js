@@ -73,12 +73,9 @@ function main(){
 
   //create an instance of the array class
   let arr = new Array();
-
-  arr.push('tauhida');
-  arr.push('tauhida');
-  //7, 12, 3
+  arr.push(3);
   console.log(arr);
-  console.log(arr.get(1));
+
 }
 
 main();
